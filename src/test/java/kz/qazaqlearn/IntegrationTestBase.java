@@ -32,7 +32,7 @@ public abstract class IntegrationTestBase {
             .withExposedPorts(6379);
 
     @Container
-    public static final KafkaContainer KAFKA = new KafkaContainer("confluentinc/cp-kafka:7.4.0");
+    public static final KafkaContainer KAFKA = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.4.0"));
 
     @Autowired
     protected StringRedisTemplate redisTemplate;

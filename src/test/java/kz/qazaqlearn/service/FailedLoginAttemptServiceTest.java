@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.lenient;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
@@ -30,7 +31,7 @@ class FailedLoginAttemptServiceTest {
 
     @BeforeEach
     void setUp() {
-        when(redisTemplate.opsForValue()).thenReturn(valueOperations);
+        lenient().when(redisTemplate.opsForValue()).thenReturn(valueOperations);
         failedLoginAttemptService = new FailedLoginAttemptService(redisTemplate);
     }
 
@@ -228,8 +229,8 @@ class FailedLoginAttemptServiceTest {
         int count = failedLoginAttemptService.getAttemptCount(email);
 
         // Then
-        // Verify the key is normalized to lowercase
-        verify(valueOperations).get("failed_login:" + email.toLowerCase());
+        // Verify the key is normalized to lowercase - called twice (isAccountLocked + getAttemptCount)
+        verify(valueOperations, times(2)).get("failed_login:" + email.toLowerCase());
         assertThat(isLocked).isFalse();
         assertThat(count).isEqualTo(2);
     }

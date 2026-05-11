@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.lenient;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
@@ -32,7 +33,7 @@ class RateLimitServiceTest {
 
     @BeforeEach
     void setUp() {
-        when(redisTemplate.opsForValue()).thenReturn(valueOperations);
+        lenient().when(redisTemplate.opsForValue()).thenReturn(valueOperations);
         rateLimitService = new RateLimitService(redisTemplate);
     }
 
@@ -41,7 +42,6 @@ class RateLimitServiceTest {
         // Given
         String ipAddress = "192.168.1.1";
         when(valueOperations.increment(anyString())).thenReturn(1L);
-        when(valueOperations.get(anyString())).thenReturn(null);
 
         // When
         boolean allowed = rateLimitService.isLoginAllowed(ipAddress);
@@ -56,7 +56,6 @@ class RateLimitServiceTest {
         // Given
         String ipAddress = "192.168.1.1";
         when(valueOperations.increment(anyString())).thenReturn(6L);
-        when(valueOperations.get(anyString())).thenReturn("6");
 
         // When
         boolean allowed = rateLimitService.isLoginAllowed(ipAddress);
@@ -70,7 +69,6 @@ class RateLimitServiceTest {
         // Given
         String ipAddress = "192.168.1.1";
         when(valueOperations.increment(anyString())).thenReturn(1L);
-        when(valueOperations.get(anyString())).thenReturn(null);
 
         // When
         boolean allowed = rateLimitService.isRegisterAllowed(ipAddress);
@@ -84,7 +82,6 @@ class RateLimitServiceTest {
         // Given
         String ipAddress = "192.168.1.1";
         when(valueOperations.increment(anyString())).thenReturn(4L);
-        when(valueOperations.get(anyString())).thenReturn("4");
 
         // When
         boolean allowed = rateLimitService.isRegisterAllowed(ipAddress);
@@ -98,7 +95,6 @@ class RateLimitServiceTest {
         // Given
         String ipAddress = "192.168.1.1";
         when(valueOperations.increment(anyString())).thenReturn(1L);
-        when(valueOperations.get(anyString())).thenReturn(null);
 
         // When
         boolean allowed = rateLimitService.isApiCallAllowed(ipAddress);

@@ -9,6 +9,7 @@ import kz.qazaqlearn.repository.AssignmentRepository;
 import kz.qazaqlearn.repository.EnrollmentRepository;
 import kz.qazaqlearn.repository.SubmissionRepository;
 import kz.qazaqlearn.repository.UserRepository;
+import kz.qazaqlearn.service.events.KafkaEventPublisher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,6 +43,8 @@ class SubmissionServiceTest {
     private SubmissionMapper submissionMapper;
     @Mock
     private AuditLogService auditLogService;
+    @Mock
+    private KafkaEventPublisher kafkaEventPublisher;
 
     @InjectMocks
     private SubmissionService submissionService;

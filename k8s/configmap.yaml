@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: qazaq-learn-config
+data:
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-service:5432/qazaq_learn"
+  SPRING_DATASOURCE_USERNAME: "postgres"
+  JWT_EXPIRATION_MS: "3600000"
+  SERVER_PORT: "8080"
+  SPRING_DATA_REDIS_HOST: "redis-service"
+  SPRING_DATA_REDIS_PORT: "6379"
+  SPRING_KAFKA_BOOTSTRAP_SERVERS: "kafka-service:9092"

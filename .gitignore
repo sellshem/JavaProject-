@@ -1,0 +1,25 @@
+# Maven
+/target
+
+# Intellij
+*.iml
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Spring Boot
+spring.log
+
+# Others
+*.class
+
+# Temporary
+*.tmp
+
+# Docker
+docker-compose.override.yml

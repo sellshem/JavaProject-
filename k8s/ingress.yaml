@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: qazaq-learn-ingress
+spec:
+  rules:
+    - host: qazaq-learn.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: qazaq-learn-service
+                port:
+                  number: 80

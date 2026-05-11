@@ -1,0 +1,19 @@
+spring:
+  kafka:
+    consumer:
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+        spring.json.trusted.packages: "kz.qazaqlearn.*"
+        spring.json.value.default.type: kz.qazaqlearn.domain.events.DomainEvent
+        spring.json.use.type.headers: "false"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: "false"
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
